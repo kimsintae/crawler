@@ -21,8 +21,8 @@
          <children>
             <TableView prefHeight="178.0" prefWidth="345.0">
               <columns>
-                <TableColumn prefWidth="273.0" text="게시글" />
-                <TableColumn prefWidth="71.0" text="등록날짜" />
+                <TableColumn fx:id="title" prefWidth="273.0" text="게시글" />
+                <TableColumn fx:id="link" prefWidth="71.0" text="등록날짜" />
               </columns>
             </TableView>
          </children>

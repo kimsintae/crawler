@@ -41,6 +41,7 @@ public class CrawlingController implements Initializable{
 	@FXML private Button searchBtn;
 	@FXML private CheckBox gaedrip;
 	@FXML private Pane checkBox_wrap;
+	@FXML private 
 	Map<String, Object> sites = new HashMap<String, Object>();
 
 	@Override
@@ -99,13 +100,10 @@ public class CrawlingController implements Initializable{
 			if(chk.isSelected()){
 				    Object value = sites.get(chk.getId());
 				    if (value instanceof GaeDrip) {
-				    	System.out.println("개드립");
 				        CrawlingModule.doCrawling((GaeDrip) value,keyword.getText(),((GaeDrip) value).getUrl("movie"));
 				    }else if (value instanceof BobaeDream) {
-				    	System.out.println("보배드림");
 				    	CrawlingModule.doCrawling((BobaeDream) value,keyword.getText(),((BobaeDream) value).getUrl("car"));
 				    }else if (value instanceof Dcinside) {
-				    	System.out.println("디시인사이드");
 				        CrawlingModule.doCrawling((Dcinside) value,keyword.getText(),((Dcinside) value).getUrl("movie"));
 				    }else if (value instanceof Fmkorea) {
 				        ((Fmkorea) value).getUrl("movie");

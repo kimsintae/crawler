@@ -17,5 +17,15 @@
             <CheckBox fx:id="dcinside" layoutX="65.0" layoutY="35.0" mnemonicParsing="false" text="디시인사이드" />
          </children>
       </Pane>
+      <Pane layoutY="150.0" prefHeight="178.0" prefWidth="345.0">
+         <children>
+            <TableView prefHeight="178.0" prefWidth="345.0">
+              <columns>
+                <TableColumn prefWidth="273.0" text="게시글" />
+                <TableColumn prefWidth="71.0" text="등록날짜" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

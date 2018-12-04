@@ -5,7 +5,7 @@ import java.util.Date;
 public class Ppomppu extends Object{
 	
 	private String title;
-	private String href;
+	private String link;
 	private Date regdate;
 	
 	public String getTitle() {
@@ -14,11 +14,11 @@ public class Ppomppu extends Object{
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getHref() {
-		return href;
+	public String getlink() {
+		return link;
 	}
-	public void setHref(String href) {
-		this.href = href;
+	public void setlink(String link) {
+		this.link = link;
 	}
 	public Date getRegdate() {
 		return regdate;

@@ -1,20 +1,10 @@
 package util;
 
-import java.security.SecureRandom;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-
 import vo.BobaeDream;
 import vo.Dcinside;
 import vo.Fmkorea;
@@ -22,10 +12,15 @@ import vo.GaeDrip;
 import vo.HumorUniv;
 import vo.Ppomppu;
 import vo.TodayHumor;
+import vo.TotalSearchData;
 import vo.Ygosu;
 
 public class CrawlingModule {
 
+	static List<TotalSearchData> searchDatas = new ArrayList<TotalSearchData>();
+	
+	
+	
     public static List<BobaeDream> doCrawling(BobaeDream bobaeObj, String keyword,String url){
     	List<BobaeDream> bobaeDreamList = new ArrayList<BobaeDream>();
     	try{
@@ -108,16 +103,24 @@ public class CrawlingModule {
 	            Elements eles = null;
 	            doc = Jsoup.connect(url).get();
 	            eles = doc.select("tbody tr:not(.notice) .title");
-	            for (int i = 0; i < eles.size(); i++) {
-	            	if(eles.get(i).select(".title-link").text().contains(keyword)){
-	            		GaeDrip gaeDrip = new GaeDrip();
-	            		gaeDrip.setTitle(eles.get(i).select(".title-link").text());
-	            		gaeDrip.setLink(eles.get(i).select(".link-reset").attr("href"));
-	            		
-	            		gaeDripList.add(gaeDrip);
-	            		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
-	            	};
-	            }//for
+	       
+	            	for (int i = 0; i < eles.size(); i++) {
+	            		if(eles.get(i).select(".title-link").text().contains(keyword)){
+	            			
+	            			 if(keyword.trim().equals("")){
+	         	            	System.out.println("개드립 글 목록");
+	         	            	
+	         	            }else{	
+	         	            	GaeDrip gaeDrip = new GaeDrip();
+		            			gaeDrip.setTitle(eles.get(i).select(".title-link").text());
+		            			gaeDrip.setLink(eles.get(i).select(".link-reset").attr("href"));
+		            			System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
+	         	            	gaeDripList.add(gaeDrip);
+	         	            }//if
+	            		};
+	            	}//for
+               
+	            
 	        }catch(Exception e){
 	            e.printStackTrace();
 	        }        

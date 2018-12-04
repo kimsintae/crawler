@@ -107,24 +107,30 @@ public class CrawlingController implements Initializable{
 			if(chk.isSelected()){
 				    Object value = sites.get(chk.getId());
 				    if (value instanceof GaeDrip) {
-				        CrawlingModule.doCrawling((GaeDrip) value,keyword.getText(),((GaeDrip) value).getUrl("movie")); // 개드립
+				    	result.addAll(CrawlingModule.doCrawling((GaeDrip) value,keyword.getText(),((GaeDrip) value).getUrl("movie"))); // 개드립
 				    }else if (value instanceof BobaeDream) {
-				    	CrawlingModule.doCrawling((BobaeDream) value,keyword.getText(),((BobaeDream) value).getUrl("car")); // 보배드림
+				    	result.addAll(CrawlingModule.doCrawling((BobaeDream) value,keyword.getText(),((BobaeDream) value).getUrl("car"))); // 보배드림
 				    }else if (value instanceof Dcinside) {
-				        CrawlingModule.doCrawling((Dcinside) value,keyword.getText(),((Dcinside) value).getUrl("movie")); // 디시인사이드
+				    	result.addAll(CrawlingModule.doCrawling((Dcinside) value,keyword.getText(),((Dcinside) value).getUrl("movie"))); // 디시인사이드
 				    }else if (value instanceof Fmkorea) {
-				        CrawlingModule.doCrawling((Fmkorea) value,keyword.getText(),((Fmkorea) value).getUrl("movie")); // 펨코
+				    	result.addAll(CrawlingModule.doCrawling((Fmkorea) value,keyword.getText(),((Fmkorea) value).getUrl("movie"))); // 펨코
 				    }else if (value instanceof HumorUniv) {
-				    	CrawlingModule.doCrawling((HumorUniv) value,keyword.getText(),((HumorUniv) value).getUrl("movie")); // 웃대
+				    	result.addAll(CrawlingModule.doCrawling((HumorUniv) value,keyword.getText(),((HumorUniv) value).getUrl("movie"))); // 웃대
 				    }else if (value instanceof Ppomppu) {
-				    	CrawlingModule.doCrawling((Ppomppu) value,keyword.getText(),((Ppomppu) value).getUrl("movie")); // 뽐뿌
+				    	result.addAll(CrawlingModule.doCrawling((Ppomppu) value,keyword.getText(),((Ppomppu) value).getUrl("movie"))); // 뽐뿌
 				    }else if (value instanceof TodayHumor) {
-				    	CrawlingModule.doCrawling((TodayHumor) value,keyword.getText(),((TodayHumor) value).getUrl("movie")); // 오유 
+				    	result.addAll(CrawlingModule.doCrawling((TodayHumor) value,keyword.getText(),((TodayHumor) value).getUrl("movie"))); // 오유 
 				    }else if (value instanceof Ygosu) {
-				    	CrawlingModule.doCrawling((Ygosu) value,keyword.getText(),((Ygosu) value).getUrl("movie")); // 와이고수    
+				    	result.addAll(CrawlingModule.doCrawling((Ygosu) value,keyword.getText(),((Ygosu) value).getUrl("movie"))); // 와이고수    
 				    }
 			}
 			
+		}
+		
+		
+//		System.out.println(result.toString());
+		for (int i = 0; i <result.size(); i++) {
+			System.out.println(result.get(i));
 		}
 	}//search
 	

@@ -2,7 +2,7 @@ package vo;
 
 import java.util.Date;
 
-public class Fmkorea extends Object{
+public class Fmkorea{
 	
 	private String title;
 	private String link;

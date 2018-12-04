@@ -18,11 +18,15 @@ import javax.net.ssl.X509TrustManager;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import util.CrawlingModule;
@@ -41,8 +45,15 @@ public class CrawlingController implements Initializable{
 	@FXML private Button searchBtn;
 	@FXML private CheckBox gaedrip;
 	@FXML private Pane checkBox_wrap;
-	@FXML private 
+	@FXML private DatePicker endDate; // 크롤링 종료 시점
+	
+	@FXML private TableView<String> resultTable;
+	@FXML private TableColumn<String, String> titleCol;
+	@FXML private TableColumn<String, String> regdateCol;
+	
+	ObservableList<CheckBox> chkList = FXCollections.observableArrayList();
 	Map<String, Object> sites = new HashMap<String, Object>();
+	ObservableList<Object> result = FXCollections.observableArrayList();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -55,10 +66,7 @@ public class CrawlingController implements Initializable{
 		sites.put("todayhumor", new TodayHumor());
 		sites.put("ygosu", new Ygosu());
 		
-		
-		
 	 TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
-			
 			@Override
 			public X509Certificate[] getAcceptedIssuers() {
 				return new X509Certificate[0];
@@ -85,42 +93,49 @@ public class CrawlingController implements Initializable{
 	
 	}
 
-	public void search(){
-		ObservableList<CheckBox> chkList = FXCollections.observableArrayList();
-		
-		// 모든 체크박스를 담음
+	public void search(ActionEvent event){
+		result.clear();
+		//전체 체크박스 가져옴
 		for(Node node : checkBox_wrap.getChildren()){
 			chkList.add((CheckBox)node);
 		}
 
 		
-		// 선택된 체크박스에서 vo 객체를 가져옴
+		// 체크박스 중 체크 된거만 표시
 		for(CheckBox chk : chkList){
 			
 			if(chk.isSelected()){
 				    Object value = sites.get(chk.getId());
 				    if (value instanceof GaeDrip) {
-				        CrawlingModule.doCrawling((GaeDrip) value,keyword.getText(),((GaeDrip) value).getUrl("movie"));
+				        CrawlingModule.doCrawling((GaeDrip) value,keyword.getText(),((GaeDrip) value).getUrl("movie")); // 개드립
 				    }else if (value instanceof BobaeDream) {
-				    	CrawlingModule.doCrawling((BobaeDream) value,keyword.getText(),((BobaeDream) value).getUrl("car"));
+				    	CrawlingModule.doCrawling((BobaeDream) value,keyword.getText(),((BobaeDream) value).getUrl("car")); // 보배드림
 				    }else if (value instanceof Dcinside) {
-				        CrawlingModule.doCrawling((Dcinside) value,keyword.getText(),((Dcinside) value).getUrl("movie"));
+				        CrawlingModule.doCrawling((Dcinside) value,keyword.getText(),((Dcinside) value).getUrl("movie")); // 디시인사이드
 				    }else if (value instanceof Fmkorea) {
-				        ((Fmkorea) value).getUrl("movie");
+				        CrawlingModule.doCrawling((Fmkorea) value,keyword.getText(),((Fmkorea) value).getUrl("movie")); // 펨코
 				    }else if (value instanceof HumorUniv) {
-				        ((HumorUniv) value).getUrl("movie");
+				    	CrawlingModule.doCrawling((HumorUniv) value,keyword.getText(),((HumorUniv) value).getUrl("movie")); // 웃대
 				    }else if (value instanceof Ppomppu) {
-				        ((Ppomppu) value).getUrl("movie");
+				    	CrawlingModule.doCrawling((Ppomppu) value,keyword.getText(),((Ppomppu) value).getUrl("movie")); // 뽐뿌
 				    }else if (value instanceof TodayHumor) {
-				        ((TodayHumor) value).getUrl("movie");
+				    	CrawlingModule.doCrawling((TodayHumor) value,keyword.getText(),((TodayHumor) value).getUrl("movie")); // 오유 
 				    }else if (value instanceof Ygosu) {
-				        ((Ygosu) value).getUrl("movie");
+				    	CrawlingModule.doCrawling((Ygosu) value,keyword.getText(),((Ygosu) value).getUrl("movie")); // 와이고수    
 				    }
 			}
 			
 		}
+	}//search
+	
+    public void chkAll(ActionEvent event){
 
-		
-		
-	}
+    	
+    }//chkAll
+    
+    
+    //크롤링 종료시점
+    public void getEndDate(ActionEvent event){
+ 	    System.out.println(endDate.getValue());
+    }
 }

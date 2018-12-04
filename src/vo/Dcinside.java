@@ -2,7 +2,7 @@ package vo;
 
 import java.util.Date;
 
-public class Dcinside extends Object{
+public class Dcinside {
 	
 	private String title;
 	private String link;

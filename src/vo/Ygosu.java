@@ -2,7 +2,7 @@ package vo;
 
 import java.util.Date;
 
-public class Ygosu extends Object{
+public class Ygosu {
 	
 	private String title;
 	private String link;

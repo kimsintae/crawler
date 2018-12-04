@@ -2,7 +2,7 @@ package vo;
 
 import java.util.Date;
 
-public class Ppomppu extends Object{
+public class Ppomppu {
 	
 	private String title;
 	private String link;

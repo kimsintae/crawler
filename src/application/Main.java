@@ -12,9 +12,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/view/FxTest.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/view/Crawler.fxml"));
 	        Scene scene = new Scene(root);
-	        primaryStage.setTitle("My title");
+	        primaryStage.setTitle("My crawler");
 	        primaryStage.setScene(scene);
 	        primaryStage.show();
 

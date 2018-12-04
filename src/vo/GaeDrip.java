@@ -2,7 +2,7 @@ package vo;
 
 import java.util.Date;
 
-public class GaeDrip extends Object{
+public class GaeDrip{
 	
 	private String title;
 	private String link;

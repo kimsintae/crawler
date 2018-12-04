@@ -2,16 +2,12 @@ package vo;
 
 import java.util.Date;
 
-public class BobaeDream extends Object {
+public class BobaeDream {
 	
 	private String title;
 	private String link;
 	private Date regdate;
-	
-	public BobaeDream() {
-		super();
-	}
-	
+
 	public String getTitle() {
 		return title;
 	}

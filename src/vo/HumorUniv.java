@@ -2,7 +2,7 @@ package vo;
 
 import java.util.Date;
 
-public class HumorUniv extends Object{
+public class HumorUniv {
 	
 	private String title;
 	private String link;

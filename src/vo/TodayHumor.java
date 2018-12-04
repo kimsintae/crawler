@@ -2,7 +2,7 @@ package vo;
 
 import java.util.Date;
 
-public class TodayHumor extends Object{
+public class TodayHumor {
 	
 	private String title;
 	private String link;

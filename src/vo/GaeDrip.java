@@ -14,10 +14,10 @@ public class GaeDrip extends Object{
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getlink() {
+	public String getLink() {
 		return link;
 	}
-	public void setlink(String link) {
+	public void setLink(String link) {
 		this.link = link;
 	}
 	public Date getRegdate() {

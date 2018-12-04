@@ -47,11 +47,11 @@ public class CrawlingModule {
 	        	if(eles.get(i).select(".title-link").text().contains(keyword)){
 	        		GaeDrip gaeDrip = new GaeDrip();
 	        		gaeDrip.setTitle(eles.get(i).select(".title-link").text());
-	        		gaeDrip.setHref(eles.get(i).select(".link-reset").attr("href"));
+	        		gaeDrip.setLink(eles.get(i).select(".link-reset").attr("Link"));
 	        		
 	        		gaeDripList.add(gaeDrip);
 	        		// 유사 게시글 
-	        		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
+	        		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("Link")) ;
 	        	};
 	        }//for
 	        
@@ -80,11 +80,11 @@ public class CrawlingModule {
 		        	if(eles.get(i).select(".title-link").text().contains(keyword)){
 		        		BobaeDream bobaeDream = new BobaeDream();
 		        		bobaeDream.setTitle(eles.get(i).select(".title-link").text());
-		        		bobaeDream.setHref(eles.get(i).select(".link-reset").attr("href"));
+		        		bobaeDream.setLink(eles.get(i).select(".link-reset").attr("Link"));
 		        		
 		        		bobaeDreamList.add(bobaeDream);
 		        		// 유사 게시글 
-		        		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
+		        		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("Link")) ;
 		        	};
 		        }//for
 		        return bobaeDreamList;
@@ -111,11 +111,11 @@ public class CrawlingModule {
         	if(eles.get(i).select(".title-link").text().contains(keyword)){
         		Dcinside dcinside = new Dcinside();
         		dcinside.setTitle(eles.get(i).select(".title-link").text());
-        		dcinside.setHref(eles.get(i).select(".link-reset").attr("href"));
+        		dcinside.setLink(eles.get(i).select(".link-reset").attr("Link"));
         		
         		dcList.add(dcinside);
         		// 유사 게시글 
-        		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
+        		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("Link")) ;
         	};
         }//for
         
@@ -144,11 +144,11 @@ public class CrawlingModule {
 	        	if(eles.get(i).select(".title-link").text().contains(keyword)){
 	        		Fmkorea fmkorea = new Fmkorea();
 	        		fmkorea.setTitle(eles.get(i).select(".title-link").text());
-	        		fmkorea.setHref(eles.get(i).select(".link-reset").attr("href"));
+	        		fmkorea.setLink(eles.get(i).select(".link-reset").attr("Link"));
 	        		
 	        		fmKoreaList.add(fmkorea);
 	        		// 유사 게시글 
-	        		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
+	        		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("Link")) ;
 	        	};
 	        }//for
 	        

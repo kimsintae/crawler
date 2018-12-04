@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="328.0" prefWidth="345.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CrawlingController">
+   <children>
+      <Button fx:id="searchBtn" layoutX="220.0" layoutY="37.0" mnemonicParsing="false" onAction="#search" prefHeight="30.0" prefWidth="55.0" text="검색" />
+      <TextField fx:id="keyword" layoutX="73.0" layoutY="37.0" prefHeight="30.0" prefWidth="138.0" />
+      <Pane fx:id="checkBox_wrap" layoutX="12.0" layoutY="89.0" prefHeight="69.0" prefWidth="322.0">
+         <children>
+            <CheckBox fx:id="gaedrip" layoutX="65.0" layoutY="12.0" mnemonicParsing="false" text="개드립" />
+            <CheckBox fx:id="bobaedream" layoutX="164.0" layoutY="12.0" mnemonicParsing="false" text="보배드림" />
+            <CheckBox fx:id="dcinside" layoutX="65.0" layoutY="35.0" mnemonicParsing="false" text="디시인사이드" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

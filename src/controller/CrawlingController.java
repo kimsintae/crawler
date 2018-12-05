@@ -101,7 +101,7 @@ public class CrawlingController implements Initializable{
 		for(CheckBox chk : chkList){
 			
 			if(chk.isSelected()){
-					System.out.println(pros.getProperty(chk.getId()+"_"+type));
+					System.out.println(CrawlingModule.doCrawling(pros.getProperty(chk.getId()+"_"+type),keyword.getText(),type,chk.getId()));
 			}//selected
 		}
 		

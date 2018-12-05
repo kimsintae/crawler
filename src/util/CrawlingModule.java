@@ -17,12 +17,18 @@ import vo.Ygosu;
 
 public class CrawlingModule {
 
-	static List<TotalSearchData> searchDatas = new ArrayList<TotalSearchData>();
 	
 	
+	public static void doCrawling(String url,String type){
+		
+
+//    }
+	}
 	
-    public static List<BobaeDream> doCrawling(BobaeDream bobaeObj, String keyword,String url){
-    	List<BobaeDream> bobaeDreamList = new ArrayList<BobaeDream>();
+	
+    public static List<TotalSearchData> getBobaeDream(String keyword,String url){
+//    	List<BobaeDream> bobaeDreamList = new ArrayList<BobaeDream>();
+    	List<TotalSearchData> totalDataList = new ArrayList<TotalSearchData>();
     	try{
     	    Document doc = null;
     	    Elements eles = null;
@@ -33,24 +39,31 @@ public class CrawlingModule {
     		eles = doc.select("tbody tr:not(.notice) .title");
     		for (int i = 0; i < eles.size(); i++) {
     			if(eles.get(i).select(".title-link").text().contains(keyword)){
-    				BobaeDream bobaeDream = new BobaeDream();
-    				bobaeDream.setTitle(eles.get(i).select(".title-link").text());
-    				bobaeDream.setLink(eles.get(i).select(".link-reset").attr("Link"));
+//    				BobaeDream bobaeDream = new BobaeDream();
+//    				bobaeDream.setTitle(eles.get(i).select(".title-link").text());
+//    				bobaeDream.setLink(eles.get(i).select(".link-reset").attr("Link"));
+//    				
+//    				bobaeDreamList.add(bobaeDream);
     				
-    				bobaeDreamList.add(bobaeDream);
+    				TotalSearchData tsd = new TotalSearchData();
+    				tsd.setTitle(eles.get(i).select(".title-link").text());
+    				tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
+    				
+    				totalDataList.add(tsd);
     				// 결과
-    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("Link")) ;
+    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
     			};
     		}//for
     	}catch(Exception e){
     		e.printStackTrace();
     	}        
     	
-    	return bobaeDreamList;
+    	return totalDataList;
     }
     
-    public static List<Dcinside> doCrawling(Dcinside dcObj, String keyword,String url){
-		List<Dcinside> dcList = new ArrayList<Dcinside>();
+    public static List<TotalSearchData> getDcinside( String keyword,String url){
+//		List<Dcinside> dcList = new ArrayList<Dcinside>();
+		List<TotalSearchData> totalDataList = new ArrayList<TotalSearchData>();
         try{
             Document doc = null;
             Elements eles = null;
@@ -58,11 +71,11 @@ public class CrawlingModule {
             eles = doc.select("tbody tr:not(.notice) .title");
             for (int i = 0; i < eles.size(); i++) {
             	if(eles.get(i).select(".title-link").text().contains(keyword)){
-            		Dcinside dcinside = new Dcinside();
-            		dcinside.setTitle(eles.get(i).select(".title-link").text());
-            		dcinside.setLink(eles.get(i).select(".link-reset").attr("Link"));
-            		
-            		dcList.add(dcinside);
+//            		Dcinside dcinside = new Dcinside();
+//            		dcinside.setTitle(eles.get(i).select(".title-link").text());
+//            		dcinside.setLink(eles.get(i).select(".link-reset").attr("Link"));
+            		TotalSearchData tsd = new TotalSearchData();
+            		totalDataList.add(tsd);
             		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("Link")) ;
             	};
             }//for
@@ -70,11 +83,12 @@ public class CrawlingModule {
             e.printStackTrace();
         }        
         
-        return dcList;
+        return totalDataList;
 	}
     
-    public static List<Fmkorea> doCrawling(Fmkorea fmObj, String keyword,String url){
-		List<Fmkorea> fmKoreaList = new ArrayList<Fmkorea>();
+    public static List<TotalSearchData> getFmkorea(String keyword,String url){
+//		List<Fmkorea> fmKoreaList = new ArrayList<Fmkorea>();
+		List<TotalSearchData> totalDataList = new ArrayList<TotalSearchData>();
         try{
             Document doc = null;
             Elements eles = null;
@@ -82,22 +96,23 @@ public class CrawlingModule {
             eles = doc.select("tbody tr:not(.notice) .title");
             for (int i = 0; i < eles.size(); i++) {
             	if(eles.get(i).select(".title-link").text().contains(keyword)){
-            		Fmkorea fmkorea = new Fmkorea();
-            		fmkorea.setTitle(eles.get(i).select(".title-link").text());
-            		fmkorea.setLink(eles.get(i).select(".link-reset").attr("Link"));
-            		fmKoreaList.add(fmkorea);
+//            		Fmkorea fmkorea = new Fmkorea();
+//            		fmkorea.setTitle(eles.get(i).select(".title-link").text());
+//            		fmkorea.setLink(eles.get(i).select(".link-reset").attr("Link"));
+            		TotalSearchData tsd = new TotalSearchData();
+            		totalDataList.add(tsd);
             		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("Link")) ;
             	};
             }//for
         }catch(Exception e){
             e.printStackTrace();
         }        
-        return fmKoreaList;
+        return totalDataList;
     }
-
     
-	public static List<GaeDrip> doCrawling(GaeDrip gaeObj,String keyword,String url){
+	public static List<TotalSearchData> getGaeDrip(String keyword,String url){
 		List<GaeDrip> gaeDripList = new ArrayList<GaeDrip>();
+		List<TotalSearchData> totalDataList = new ArrayList<TotalSearchData>();
 	        try{
 	            Document doc = null;
 	            Elements eles = null;
@@ -111,11 +126,17 @@ public class CrawlingModule {
 	         	            	System.out.println("개드립 글 목록");
 	         	            	
 	         	            }else{	
-	         	            	GaeDrip gaeDrip = new GaeDrip();
-		            			gaeDrip.setTitle(eles.get(i).select(".title-link").text());
-		            			gaeDrip.setLink(eles.get(i).select(".link-reset").attr("href"));
+//	         	            	GaeDrip gaeDrip = new GaeDrip();
+//		            			gaeDrip.setTitle(eles.get(i).select(".title-link").text());
+//		            			gaeDrip.setLink(eles.get(i).select(".link-reset").attr("href"));
+//		            			System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
+//	         	            	gaeDripList.add(gaeDrip);
+//	         	            	
+	         	            	TotalSearchData tsd = new TotalSearchData();
+	         	            	tsd.setTitle(eles.get(i).select(".title-link").text());
+	         	            	tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
 		            			System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
-	         	            	gaeDripList.add(gaeDrip);
+	                    		totalDataList.add(tsd);
 	         	            }//if
 	            		};
 	            	}//for
@@ -124,11 +145,12 @@ public class CrawlingModule {
 	        }catch(Exception e){
 	            e.printStackTrace();
 	        }        
-	        return gaeDripList;
+	        return totalDataList;
 	}
 	
-	public static List<HumorUniv> doCrawling(HumorUniv huObj, String keyword,String url){
-		List<HumorUniv> huList = new ArrayList<HumorUniv>();
+	public static List<TotalSearchData> getHumorUniv(String keyword,String url){
+//		List<HumorUniv> huList = new ArrayList<HumorUniv>();
+		List<TotalSearchData> totalDataList = new ArrayList<TotalSearchData>();
         try{
             Document doc = null;
             Elements eles = null;
@@ -136,10 +158,16 @@ public class CrawlingModule {
             eles = doc.select("tbody tr:not(.notice) .title");
             for (int i = 0; i < eles.size(); i++) {
             	if(eles.get(i).select(".title-link").text().contains(keyword)){
-            		HumorUniv hu = new HumorUniv();
-            		hu.setTitle(eles.get(i).select(".title-link").text());
-            		hu.setLink(eles.get(i).select(".link-reset").attr("href"));
-            		huList.add(hu);
+//            		HumorUniv hu = new HumorUniv();
+//            		hu.setTitle(eles.get(i).select(".title-link").text());
+//            		hu.setLink(eles.get(i).select(".link-reset").attr("href"));
+//            		huList.add(hu);
+            		
+            		TotalSearchData tsd = new TotalSearchData();
+            		tsd.setTitle(eles.get(i).select(".title-link").text());
+            		tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
+            		totalDataList.add(tsd);
+            		
             		
             		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
             	};
@@ -148,11 +176,13 @@ public class CrawlingModule {
             e.printStackTrace();
         }        
         
-        return huList;
+        return totalDataList;
 	}
 	
-	public static List<Ppomppu> doCrawling(Ppomppu ppObj, String keyword,String url){
-		List<Ppomppu> ppList = new ArrayList<Ppomppu>();
+	public static List<TotalSearchData> getPpomppu(String keyword,String url){
+//		List<Ppomppu> ppList = new ArrayList<Ppomppu>();
+		List<TotalSearchData> totalDataList = new ArrayList<TotalSearchData>();
+
         try{
             Document doc = null;
             Elements eles = null;
@@ -160,10 +190,15 @@ public class CrawlingModule {
             eles = doc.select("tbody tr:not(.notice) .title");
             for (int i = 0; i < eles.size(); i++) {
             	if(eles.get(i).select(".title-link").text().contains(keyword)){
-            		Ppomppu pp = new Ppomppu();
-            		pp.setTitle(eles.get(i).select(".title-link").text());
-            		pp.setLink(eles.get(i).select(".link-reset").attr("Link"));
-            		ppList.add(pp);
+//            		Ppomppu pp = new Ppomppu();
+//            		pp.setTitle(eles.get(i).select(".title-link").text());
+//            		pp.setLink(eles.get(i).select(".link-reset").attr("Link"));
+//            		ppList.add(pp);
+            		
+            		TotalSearchData tsd = new TotalSearchData();
+            		tsd.setTitle(eles.get(i).select(".title-link").text());
+            		tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
+            		totalDataList.add(tsd);
             		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("Link")) ;
             	};
             }//for
@@ -171,11 +206,12 @@ public class CrawlingModule {
             e.printStackTrace();
         }        
         
-        return ppList;
+        return totalDataList;
 	}
 	
-	public static List<TodayHumor> doCrawling(TodayHumor thObj, String keyword,String url){
-		List<TodayHumor> thList = new ArrayList<TodayHumor>();
+	public static List<TotalSearchData> getTodayHumor(String keyword,String url){
+//		List<TodayHumor> thList = new ArrayList<TodayHumor>();
+		List<TotalSearchData> totalDataList = new ArrayList<TotalSearchData>();
         try{
             Document doc = null;
             Elements eles = null;
@@ -183,21 +219,27 @@ public class CrawlingModule {
             eles = doc.select("tbody tr:not(.notice) .title");
             for (int i = 0; i < eles.size(); i++) {
             	if(eles.get(i).select(".title-link").text().contains(keyword)){
-            		TodayHumor th = new TodayHumor();
-            		th.setTitle(eles.get(i).select(".title-link").text());
-            		th.setLink(eles.get(i).select(".link-reset").attr("Link"));
-            		thList.add(th);
+//            		TodayHumor th = new TodayHumor();
+//            		th.setTitle(eles.get(i).select(".title-link").text());
+//            		th.setLink(eles.get(i).select(".link-reset").attr("Link"));
+//            		thList.add(th);
+            		
+            		TotalSearchData tsd = new TotalSearchData();
+            		tsd.setTitle(eles.get(i).select(".title-link").text());
+            		tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
+            		totalDataList.add(tsd);
             		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("Link")) ;
             	};
             }//for
         }catch(Exception e){
             e.printStackTrace();
         }        
-        return thList;
+        return totalDataList;
 	}
 	
-	public static List<Ygosu> doCrawling(Ygosu ygObj, String keyword,String url){
-		List<Ygosu> ygList = new ArrayList<Ygosu>();
+	public static List<TotalSearchData> getYgosu(String keyword,String url){
+//		List<Ygosu> ygList = new ArrayList<Ygosu>();
+		List<TotalSearchData> totalDataList = new ArrayList<TotalSearchData>();
         try{
             Document doc = null;
             Elements eles = null;
@@ -205,10 +247,15 @@ public class CrawlingModule {
             eles = doc.select("tbody tr:not(.notice) .title");
             for (int i = 0; i < eles.size(); i++) {
             	if(eles.get(i).select(".title-link").text().contains(keyword)){
-            		Ygosu yg = new Ygosu();
-            		yg.setTitle(eles.get(i).select(".title-link").text());
-            		yg.setLink(eles.get(i).select(".link-reset").attr("Link"));
-            		ygList.add(yg);
+//            		Ygosu yg = new Ygosu();
+//            		yg.setTitle(eles.get(i).select(".title-link").text());
+//            		yg.setLink(eles.get(i).select(".link-reset").attr("Link"));
+//            		ygList.add(yg);
+            		
+            		TotalSearchData tsd = new TotalSearchData();
+            		tsd.setTitle(eles.get(i).select(".title-link").text());
+            		tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
+            		totalDataList.add(tsd);
             		System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("Link")) ;
             	};
             }//for
@@ -216,7 +263,7 @@ public class CrawlingModule {
             e.printStackTrace();
         }        
         
-        return ygList;
+        return totalDataList;
 	}
 	
 }

@@ -40,6 +40,7 @@ import vo.GaeDrip;
 import vo.HumorUniv;
 import vo.Ppomppu;
 import vo.TodayHumor;
+import vo.TotalSearchData;
 import vo.Ygosu;
 
 public class CrawlingController implements Initializable{
@@ -52,8 +53,8 @@ public class CrawlingController implements Initializable{
 	
 	ObservableList<CheckBox> chkList = FXCollections.observableArrayList();
 	Map<String, Object> sites = new HashMap<String, Object>();
-	ObservableList<Object> result = FXCollections.observableArrayList();
-	
+	ObservableList<TotalSearchData> resultList = FXCollections.observableArrayList();
+
 	Properties pros = new Properties();
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -90,7 +91,7 @@ public class CrawlingController implements Initializable{
 	public void search(ActionEvent event){
 		
 		String type = "movie";
-		result.clear();
+		resultList.clear();
 		
 		//전체 체크박스 가져옴
 		for(Node node : checkBox_wrap.getChildren()){
@@ -101,13 +102,13 @@ public class CrawlingController implements Initializable{
 		for(CheckBox chk : chkList){
 			
 			if(chk.isSelected()){
-					System.out.println(CrawlingModule.doCrawling(pros.getProperty(chk.getId()+"_"+type),keyword.getText(),type,chk.getId()));
+				resultList.addAll(CrawlingModule.doCrawling(pros.getProperty(chk.getId()+"_"+type),keyword.getText(),type,chk.getId()));
 			}//selected
 		}
 		
 //		System.out.println(result.toString());
-		for (int i = 0; i <result.size(); i++) {
-			System.out.println(result.get(i));
+		for (int i = 0; i <resultList.size(); i++) {
+			System.out.println(resultList.get(i).getTitle());
 		}
 	}//search
 	

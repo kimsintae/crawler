@@ -6,6 +6,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import javafx.beans.property.SimpleStringProperty;
 import vo.TotalSearchData;
 
 public class CrawlingModule {
@@ -20,28 +22,6 @@ public class CrawlingModule {
 	    	  Elements eles = null;
 			switch (site) {
 			case "bobaedream":
-	//	    	List<BobaeDream> bobaeDreamList = new ArrayList<BobaeDream>();
-		    		
-		    		// 요소 탐색  
-		    		eles = doc.select("tbody tr:not(.notice) .title");
-		    		for (int i = 0; i < eles.size(); i++) {
-		    			if(eles.get(i).select(".title-link").text().contains(keyword)){
-	//	    				BobaeDream bobaeDream = new BobaeDream();
-	//	    				bobaeDream.setTitle(eles.get(i).select(".title-link").text());
-	//	    				bobaeDream.setLink(eles.get(i).select(".link-reset").attr("Link"));
-	//	    				
-	//	    				bobaeDreamList.add(bobaeDream);
-		    				
-		    				TotalSearchData tsd = new TotalSearchData();
-		    				tsd.setTitle(eles.get(i).select(".title-link").text());
-		    				tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
-		    				
-		    				totalDataList.add(tsd);
-		    				// 결과
-//		    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
-		    			};
-		    		}//for
-		    	
 	
 				break;
 			case "dcinside":
@@ -51,26 +31,16 @@ public class CrawlingModule {
 				            	if(!el.text().equals("공지") && !el.text().equals("설문")){
 				            		if(el.parent().select("a").text().contains(keyword)){
 				            			TotalSearchData tsd = new TotalSearchData();
-					    				tsd.setTitle(el.parent().select("a").text());
-					    				tsd.setLink("http://gall.dcinside.com"+el.parent().select("a").attr("href"));
+					    				tsd.setTitle(new SimpleStringProperty(el.parent().select("a").text()));
+					    				tsd.setLink(new SimpleStringProperty("http://gall.dcinside.com"+el.parent().select("a").attr("href")));
+					    				tsd.setSiteName(new SimpleStringProperty("디시인사이드"));
 					    				totalDataList.add(tsd);
 				            		}
 				            	}
 				            }//for
 				break;
 			case "fmkorea":
-			    		// 요소 탐색  
-			    		eles = doc.select("tbody tr:not(.notice) .title");
-			    		for (int i = 0; i < eles.size(); i++) {
-			    			if(eles.get(i).select(".title-link").text().contains(keyword)){
-			    				TotalSearchData tsd = new TotalSearchData();
-			    				tsd.setTitle(eles.get(i).select(".title-link").text());
-			    				tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
-			    				totalDataList.add(tsd);
-			    				// 결과
-//			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
-			    			};
-			    		}//for
+
 				break;
 			case "gaedrip":
 			    		// 요소 탐색  
@@ -78,8 +48,9 @@ public class CrawlingModule {
 			    		for (int i = 0; i < eles.size(); i++) {
 			    			if(eles.get(i).select(".title-link").text().contains(keyword)){
 			    				TotalSearchData tsd = new TotalSearchData();
-			    				tsd.setTitle(eles.get(i).select(".title-link").text());
-			    				tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
+			    				tsd.setTitle(new SimpleStringProperty(eles.get(i).select(".title-link").text()));
+			    				tsd.setLink(new SimpleStringProperty(eles.get(i).select(".link-reset").attr("href")));
+			    				tsd.setSiteName(new SimpleStringProperty("개드립"));
 			    				totalDataList.add(tsd);
 			    				// 결과
 //			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
@@ -87,21 +58,8 @@ public class CrawlingModule {
 			    		}//for
 				break;
 			case "humoruniv":
-			    		// 사이트 연결
-			    		doc = Jsoup.connect(url).get();
-			    		
-			    		// 요소 탐색  
-			    		eles = doc.select("tbody tr:not(.notice) .title");
-			    		for (int i = 0; i < eles.size(); i++) {
-			    			if(eles.get(i).select(".title-link").text().contains(keyword)){
-			    				TotalSearchData tsd = new TotalSearchData();
-			    				tsd.setTitle(eles.get(i).select(".title-link").text());
-			    				tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
-			    				totalDataList.add(tsd);
-			    				// 결과
-//			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
-			    			};
-			    		}//for
+				
+				
 				break;
 			case "ppomppu":
 						// 요소 탐색  
@@ -109,50 +67,22 @@ public class CrawlingModule {
 				  		for(Element el : eles){
 				  			if(el.text().contains(keyword)){
 				  			    TotalSearchData tsd = new TotalSearchData();
-			    				tsd.setTitle(el.text());
-			    				tsd.setLink("https://www.ppomppu.co.kr/zboard/"+el.parent().select("a").attr("href"));
+			    				tsd.setTitle(new SimpleStringProperty(el.text()));
+			    				tsd.setLink(new SimpleStringProperty("https://www.ppomppu.co.kr/zboard/"+el.parent().select("a").attr("href")));
+			    				tsd.setSiteName(new SimpleStringProperty("뽐뿌"));
 			    				totalDataList.add(tsd);
 				  			}
 				  		}
 
 				break;
 			case "todayhumor":
-			    		
-			    		// 요소 탐색  
-			    		eles = doc.select("tbody tr:not(.notice) .title");
-			    		for (int i = 0; i < eles.size(); i++) {
-			    			if(eles.get(i).select(".title-link").text().contains(keyword)){
-			    				
-			    				TotalSearchData tsd = new TotalSearchData();
-			    				tsd.setTitle(eles.get(i).select(".title-link").text());
-			    				tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
-			    				
-			    				totalDataList.add(tsd);
-			    				// 결과
-//			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
-			    			};
-			    		}//for
+
 				break;
 			case "ygosu":
-			    		// 요소 탐색  
-			    		eles = doc.select("tbody tr:not(.notice) .title");
-			    		for (int i = 0; i < eles.size(); i++) {
-			    			if(eles.get(i).select(".title-link").text().contains(keyword)){
-			    				
-			    				TotalSearchData tsd = new TotalSearchData();
-			    				tsd.setTitle(eles.get(i).select(".title-link").text());
-			    				tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
-			    				
-			    				totalDataList.add(tsd);
-			    				// 결과
-//			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
-			    			};
-			    		}//for
+
 				break;
 			}
-		}catch(Exception e){
-    		e.printStackTrace();
-    	}        
+		}catch(Exception e){e.printStackTrace();}        
     	
     	return totalDataList;
 

@@ -14,7 +14,7 @@ public class Main extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/view/Crawler.fxml"));
 	        Scene scene = new Scene(root);
-	        primaryStage.setTitle("My crawler");
+	        primaryStage.setTitle("crawler v0.0.1 - kimsintae");
 	        primaryStage.setScene(scene);
 	        primaryStage.show();
 

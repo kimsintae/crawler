@@ -1,26 +1,36 @@
 package vo;
 
+import javafx.beans.property.StringProperty;
+
 public class TotalSearchData {
-	private String title;
-	private String link;
-	private String regdate;
+	private StringProperty title;
+	private StringProperty link;
+	private StringProperty regdate;
+	private StringProperty siteName;
 	
-	public String getTitle() {
+	public StringProperty  getTitle() {
 		return title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(StringProperty title) {
 		this.title = title;
 	}
-	public String getLink() {
+	public StringProperty  getLink() {
 		return link;
 	}
-	public void setLink(String link) {
+	public void setLink(StringProperty link) {
 		this.link = link;
 	}
-	public String getRegdate() {
+	public StringProperty getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(String regdate) {
+	public void setRegdate(StringProperty regdate) {
 		this.regdate = regdate;
 	}
+	public StringProperty getSiteName() {
+		return siteName;
+	}
+	public void setSiteName(StringProperty siteName) {
+		this.siteName = siteName;
+	}
+	
 }

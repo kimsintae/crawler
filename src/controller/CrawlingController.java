@@ -50,10 +50,18 @@ public class CrawlingController implements Initializable{
 	@FXML private CheckBox gaedrip;
 	@FXML private Pane checkBox_wrap;
 	@FXML private DatePicker endDate; // 크롤링 종료 시점
+	@FXML private TableView<TotalSearchData> resultTable;
+	@FXML private TableColumn<TotalSearchData, String> titleCol;
+	@FXML private TableColumn<TotalSearchData, String> siteCol;
 	
 	ObservableList<CheckBox> chkList = FXCollections.observableArrayList();
 	ObservableList<TotalSearchData> resultList = FXCollections.observableArrayList();
 
+	
+	
+	
+	
+	
 	Properties pros = new Properties();
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -99,11 +107,20 @@ public class CrawlingController implements Initializable{
 			
 			//크롤링시작
 			if(chk.isSelected()){
-				resultList.addAll(CrawlingModule.doCrawling(pros.getProperty(chk.getId()+"_"+type),keyword.getText(),type,chk.getId()));
+				
+				if(!keyword.getText().trim().equals("")){
+					resultList.addAll(CrawlingModule.doCrawling(pros.getProperty(chk.getId()+"_"+type),keyword.getText().trim(),type,chk.getId()));
+				}else{
+					System.out.println("검색어 없음");
+				}
+				
 			}//selected
 		}
 		for (int i = 0; i <resultList.size(); i++) {
 			System.out.println(resultList.get(i).getTitle());
+			titleCol.setCellValueFactory(cellData -> cellData.getValue().getTitle());
+			siteCol.setCellValueFactory(cellData -> cellData.getValue().getSiteName());
+			resultTable.setItems(resultList);
 		}
 		
 	}//search

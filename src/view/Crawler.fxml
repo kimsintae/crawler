@@ -10,18 +10,9 @@
 <AnchorPane prefHeight="830.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CrawlingController">
   <!-- TODO Add Nodes -->
   <children>
-    <Pane layoutX="52.0" prefHeight="830.0" prefWidth="710.0" style="">
+    <Pane layoutX="46.0" prefHeight="807.0" prefWidth="710.0" style="">
       <children>
-        <GridPane id="GridPane" layoutX="14.0" layoutY="44.0">
-          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-          </columnConstraints>
-          <rowConstraints>
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-          </rowConstraints>
-        </GridPane>
-        <TextField fx:id="keyword" layoutX="16.0" layoutY="54.0" prefHeight="30.0" prefWidth="224.0" />
+        <TextField fx:id="keyword" layoutX="16.0" layoutY="54.0" prefHeight="30.0" prefWidth="224.0" text="검색어를 입력해주세요" />
         <Button id="searchBtn" fx:id="searchBtn" layoutX="240.0" layoutY="54.0" mnemonicParsing="false" onAction="#search" prefHeight="30.0" prefWidth="40.0" text="검색" />
         <Pane fx:id="checkBox_wrap" layoutX="4.0" layoutY="107.0" prefHeight="137.0" prefWidth="703.0" style="-fx-background-color:#4285F4">
           <children>
@@ -46,8 +37,8 @@
             </Text>
             <TableView fx:id="resultTable" layoutX="4.0" layoutY="251.0" prefHeight="578.0" prefWidth="703.0">
               <columns>
-                <TableColumn fx:id="titleCol" prefWidth="612.0" text="제목" />
-                <TableColumn fx:id="regdateCol" prefWidth="90.0" text="등록날짜" />
+                <TableColumn fx:id="titleCol" prefWidth="521.0" text="제목" />
+                <TableColumn fx:id="siteCol" prefWidth="162.0" text="사이트" />
               </columns>
             </TableView>
       </children>

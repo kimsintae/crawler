@@ -52,14 +52,11 @@ public class CrawlingController implements Initializable{
 	@FXML private DatePicker endDate; // 크롤링 종료 시점
 	
 	ObservableList<CheckBox> chkList = FXCollections.observableArrayList();
-	Map<String, Object> sites = new HashMap<String, Object>();
 	ObservableList<TotalSearchData> resultList = FXCollections.observableArrayList();
 
 	Properties pros = new Properties();
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println("initialize called ! ");
-
 	 TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
 			@Override
 			public X509Certificate[] getAcceptedIssuers() {
@@ -89,10 +86,9 @@ public class CrawlingController implements Initializable{
 	
 
 	public void search(ActionEvent event){
-		
 		String type = "movie";
 		resultList.clear();
-		
+		chkList.clear();
 		//전체 체크박스 가져옴
 		for(Node node : checkBox_wrap.getChildren()){
 			chkList.add((CheckBox)node);
@@ -101,15 +97,15 @@ public class CrawlingController implements Initializable{
 		// 체크박스 중 체크 된거만 표시
 		for(CheckBox chk : chkList){
 			
+			//크롤링시작
 			if(chk.isSelected()){
 				resultList.addAll(CrawlingModule.doCrawling(pros.getProperty(chk.getId()+"_"+type),keyword.getText(),type,chk.getId()));
 			}//selected
 		}
-		
-//		System.out.println(result.toString());
 		for (int i = 0; i <resultList.size(); i++) {
 			System.out.println(resultList.get(i).getTitle());
 		}
+		
 	}//search
 	
     public void chkAll(ActionEvent event){

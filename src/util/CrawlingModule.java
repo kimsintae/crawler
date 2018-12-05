@@ -6,15 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import vo.BobaeDream;
-import vo.Dcinside;
-import vo.Fmkorea;
-import vo.GaeDrip;
-import vo.HumorUniv;
-import vo.Ppomppu;
-import vo.TodayHumor;
 import vo.TotalSearchData;
-import vo.Ygosu;
 
 public class CrawlingModule {
 
@@ -56,16 +48,15 @@ public class CrawlingModule {
 							// 요소 탐색  
 				            eles = doc.select("tbody .gall_num");
 				            for(Element el : eles){
-				            	if(!el.text().equals("공지")&&!el.text().equals("설문")){
-				    				TotalSearchData tsd = new TotalSearchData();
-				    				tsd.setTitle(el.parent().select("a").text());
-				    				tsd.setLink("http://gall.dcinside.com"+el.parent().select("a").attr("href"));
-				    				totalDataList.add(tsd);
-				            		// el.parent().select("a") 게시글 제목
-				            		// el.parent().select("a").attr("href") 링크
-//				    				System.out.println(el.parent().select("a"));
+				            	if(!el.text().equals("공지") && !el.text().equals("설문")){
+				            		if(el.parent().select("a").text().contains(keyword)){
+				            			TotalSearchData tsd = new TotalSearchData();
+					    				tsd.setTitle(el.parent().select("a").text());
+					    				tsd.setLink("http://gall.dcinside.com"+el.parent().select("a").attr("href"));
+					    				totalDataList.add(tsd);
+				            		}
 				            	}
-				            }
+				            }//for
 				break;
 			case "fmkorea":
 			    		// 요소 탐색  
@@ -75,10 +66,9 @@ public class CrawlingModule {
 			    				TotalSearchData tsd = new TotalSearchData();
 			    				tsd.setTitle(eles.get(i).select(".title-link").text());
 			    				tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
-			    				
 			    				totalDataList.add(tsd);
 			    				// 결과
-			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
+//			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
 			    			};
 			    		}//for
 				break;
@@ -90,10 +80,9 @@ public class CrawlingModule {
 			    				TotalSearchData tsd = new TotalSearchData();
 			    				tsd.setTitle(eles.get(i).select(".title-link").text());
 			    				tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
-			    				
 			    				totalDataList.add(tsd);
 			    				// 결과
-			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
+//			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
 			    			};
 			    		}//for
 				break;
@@ -108,29 +97,24 @@ public class CrawlingModule {
 			    				TotalSearchData tsd = new TotalSearchData();
 			    				tsd.setTitle(eles.get(i).select(".title-link").text());
 			    				tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
-			    				
 			    				totalDataList.add(tsd);
 			    				// 결과
-			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
+//			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
 			    			};
 			    		}//for
 				break;
 			case "ppomppu":
-			    		
-			    		// 요소 탐색  
-			    		eles = doc.select("tbody tr:not(.notice) .title");
-			    		for (int i = 0; i < eles.size(); i++) {
-			    			if(eles.get(i).select(".title-link").text().contains(keyword)){
-			    				
-			    				TotalSearchData tsd = new TotalSearchData();
-			    				tsd.setTitle(eles.get(i).select(".title-link").text());
-			    				tsd.setLink(eles.get(i).select(".link-reset").attr("href"));
-			    				
+						// 요소 탐색  
+			    		eles = doc.select("tbody tr:not(.list_notice) .list_title");
+				  		for(Element el : eles){
+				  			if(el.text().contains(keyword)){
+				  			    TotalSearchData tsd = new TotalSearchData();
+			    				tsd.setTitle(el.text());
+			    				tsd.setLink("https://www.ppomppu.co.kr/zboard/"+el.parent().select("a").attr("href"));
 			    				totalDataList.add(tsd);
-			    				// 결과
-			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
-			    			};
-			    		}//for
+				  			}
+				  		}
+
 				break;
 			case "todayhumor":
 			    		
@@ -145,7 +129,7 @@ public class CrawlingModule {
 			    				
 			    				totalDataList.add(tsd);
 			    				// 결과
-			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
+//			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
 			    			};
 			    		}//for
 				break;
@@ -161,7 +145,7 @@ public class CrawlingModule {
 			    				
 			    				totalDataList.add(tsd);
 			    				// 결과
-			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
+//			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
 			    			};
 			    		}//for
 				break;

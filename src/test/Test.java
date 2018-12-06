@@ -13,21 +13,23 @@ public class Test {
 	
 	public static void main(String[] args) {
 		
-		String keyword = "¸¶ºí";
+		
 		Document doc = null;
   	    Elements eles = null;
-  		// »çÀÌÆ® ¿¬°á
+  		// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
   		try {
-			doc = Jsoup.connect("https://www.ppomppu.co.kr/zboard/zboard.php?id=movie&page=1").get();
-			// ¿ä¼Ò Å½»ö  
-	  		eles = doc.select("tbody tr:not(.list_notice) .list_title");
+			doc = Jsoup.connect("https://www.ygosu.com/community/movie/?page=1").get();
+			// ï¿½ï¿½ï¿½ Å½ï¿½ï¿½  
+	  		eles = doc.select(".bd_list tbody tr:not(.notice)"); // tr ê¹Œì§€ë§Œ ë½‘ê¸°
 	  		
+//	  		System.out.println(eles);
 	  		
 	  		for(Element el : eles){
-	  			if(el.text().contains(keyword)){
-	  				System.out.println(el.text());
-//	  			System.out.println("https://www.ppomppu.co.kr/zboard/"+el.parent().select("a").attr("href"));
-	  			}
+	  			System.out.println("https://www.ygosu.com"+el.select(".tit a").attr("href"));
+	  			System.out.println(el.select(".tit").text());
+//	  			if(el.text().contains(keyword)){
+//	  				System.out.println(el.text());
+//	  			}
 	  		}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

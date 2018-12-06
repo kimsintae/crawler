@@ -12,16 +12,14 @@ import vo.TotalSearchData;
 
 public class CrawlingModule {
 	
-	
 	/*
-	 * 
 	 * 
 	 * 	크롤링 타켓 사이트 요소판별기
 	 *  규칙
 	 *  1. tr 까지만 뽑기
 	 */
 	
-	public static List<TotalSearchData> doCrawling(String url, String keyword, String type, String site){
+	public static List<TotalSearchData> doCrawling(String url, String keyword, String site){
 
 		List<TotalSearchData> totalDataList = new ArrayList<TotalSearchData>();
 		try{

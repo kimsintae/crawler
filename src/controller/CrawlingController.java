@@ -19,6 +19,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,21 +28,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import util.CrawlingModule;
-import vo.BobaeDream;
-import vo.Dcinside;
-import vo.Fmkorea;
-import vo.GaeDrip;
-import vo.HumorUniv;
-import vo.Ppomppu;
-import vo.TodayHumor;
 import vo.TotalSearchData;
-import vo.Ygosu;
 
 public class CrawlingController implements Initializable{
 
@@ -53,13 +47,23 @@ public class CrawlingController implements Initializable{
 	@FXML private TableView<TotalSearchData> resultTable;
 	@FXML private TableColumn<TotalSearchData, String> titleCol;
 	@FXML private TableColumn<TotalSearchData, String> siteCol;
+	@FXML private ChoiceBox<String> type;
 	
+	ObservableList<String> choiceList = FXCollections.observableArrayList();
 	ObservableList<CheckBox> chkList = FXCollections.observableArrayList();
 	ObservableList<TotalSearchData> resultList = FXCollections.observableArrayList();
 	
 	Properties pros = new Properties();
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		choiceList.removeAll(choiceList);
+		choiceList.add("MOVIE");
+		choiceList.add("TRAVEL");
+		choiceList.add("GAME");
+		choiceList.add("CAR");
+		choiceList.add("SOCCER");
+		type.getItems().addAll(choiceList);
+		
 	 TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
 			@Override
 			public X509Certificate[] getAcceptedIssuers() {
@@ -86,10 +90,8 @@ public class CrawlingController implements Initializable{
 		}
 	
 	}//init
-	
 
 	public void search(ActionEvent event){
-		String type = "movie";
 		resultList.clear();
 		chkList.clear();
 		//전체 체크박스 가져옴
@@ -99,14 +101,13 @@ public class CrawlingController implements Initializable{
 		
 		// 체크박스 중 체크 된거만 표시
 		for(CheckBox chk : chkList){
-			
+			String typeName = type.getValue();
 			//크롤링시작
 			if(chk.isSelected()){
-				
-				if(!keyword.getText().trim().equals("")){
-					resultList.addAll(CrawlingModule.doCrawling(pros.getProperty(chk.getId()+"_"+type),keyword.getText().trim(),type,chk.getId()));
+				if(!keyword.getText().trim().equals("")&&typeName!=null){
+					resultList.addAll(CrawlingModule.doCrawling(pros.getProperty(chk.getId()+"_"+type.getValue()),keyword.getText().trim(),chk.getId()));
 				}else{
-					System.out.println("검색어 없음");
+					System.out.println("검색어 없거나 타입 선택되지 않음");
 				}
 				
 			}//selected

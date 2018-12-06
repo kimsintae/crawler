@@ -56,11 +56,6 @@ public class CrawlingController implements Initializable{
 	
 	ObservableList<CheckBox> chkList = FXCollections.observableArrayList();
 	ObservableList<TotalSearchData> resultList = FXCollections.observableArrayList();
-
-	
-	
-	
-	
 	
 	Properties pros = new Properties();
 	@Override

@@ -8,8 +8,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -49,6 +52,7 @@ public class CrawlingController implements Initializable{
 	@FXML private TableColumn<TotalSearchData, String> titleCol;
 	@FXML private TableColumn<TotalSearchData, String> siteCol;
 	@FXML private ChoiceBox<String> type;
+	@FXML private ChoiceBox<String> colType;
 	
 	ObservableList<String> choiceList = FXCollections.observableArrayList();
 	ObservableList<CheckBox> chkList = FXCollections.observableArrayList();
@@ -69,6 +73,19 @@ public class CrawlingController implements Initializable{
 		choiceList.add("SOCCER");
 		type.getItems().addAll(choiceList);
 		type.getSelectionModel().select(0); // 처음 선택 되어 있을 값
+		
+		choiceList.removeAll(choiceList);
+		choiceList.add("키워드 수집");
+		choiceList.add("게시글 수집");
+		colType.getItems().addAll(choiceList);
+		colType.getSelectionModel().select(0); // 처음 선택 되어 있을 값
+		
+		// 현재 날짜로 값 설정
+		Date d = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		endDate.setPromptText(sdf.format(d));
+		
+		
 		// https 연결 설정	
 		 TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
 				@Override
@@ -95,22 +112,53 @@ public class CrawlingController implements Initializable{
 				e.printStackTrace();
 			}
 		 
-		 
-		 
-		 
-		 
 		 type.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 			 @Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				 System.out.println();
+//				 System.out.println(type.getSelectionModel().getSelectedItem());
+				 
+				 
+				 
+				 
 			}
 		});
-	
+
+		 colType.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			 @Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				 System.out.println();
+				 
+				 if(newValue.intValue()==0){
+					 //키워드 수집
+					 endDate.setDisable(false);
+				 }else{
+					 //게시글 수집
+					 endDate.setDisable(true);
+					 
+				 }
+			 }
+		});
+
+		 
 	}//init
 
+	// 검색버튼
 	public void search(ActionEvent event){
 		resultList.clear();
 		chkList.clear();
+		
+		// 검색 타입
+		String colType_str = colType.getValue();
+		switch (colType_str) {
+		case "게시글  수집":
+			colType_str = "search_board";
+			break;
+		case "키워드  수집":
+			colType_str = "search_keyword";
+			break;
+		}
+		
+		System.out.println(colType_str);
 		//전체 체크박스 가져옴
 		for(Node node : checkBox_wrap.getChildren()){
 			chkList.add((CheckBox)node);
@@ -121,14 +169,20 @@ public class CrawlingController implements Initializable{
 			String typeName = type.getValue();
 			//크롤링시작
 			if(chk.isSelected()){
-				if(!keyword.getText().trim().equals("")&&typeName!=null){
+				// 선택된 사이트들만
+				if(!keyword.getText().trim().equals("") || colType_str.equals("search_keyword")){
+					// 키워드 모듈
 					resultList.addAll(CrawlingModule.doCrawling(pros.getProperty(chk.getId()+"_"+type.getValue().toLowerCase()),keyword.getText().trim(),chk.getId()));
 				}else{
-					System.out.println("검색어 없거나 타입 선택되지 않음");
+					// 게시글 모듈
+					System.out.println("게시글 모듈");
+					
 				}
 				
 			}//selected
 		}
+		
+		// 테이블에 데이터 뿌리기
 		for (int i = 0; i <resultList.size(); i++) {
 			System.out.println(resultList.get(i).getTitle());
 			titleCol.setCellValueFactory(cellData -> cellData.getValue().getTitle());

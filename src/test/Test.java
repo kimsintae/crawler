@@ -18,8 +18,7 @@ public class Test {
   	    Elements eles = null;
   		// ����Ʈ ����
   		try {
-			doc = Jsoup.connect("https://www.ygosu.com/community/movie/?page=1").get();
-			// ��� Ž��  
+			doc = Jsoup.connect("http://www.etoland.co.kr/bbs/board.php?bo_table=movie&page=1").get();
 	  		eles = doc.select(".bd_list tbody tr:not(.notice)"); // tr 까지만 뽑기
 	  		
 //	  		System.out.println(eles);

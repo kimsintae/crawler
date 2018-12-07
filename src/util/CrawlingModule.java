@@ -124,6 +124,18 @@ public class CrawlingModule {
 		  			}
 		  		}
 				break;
+			case "etorrent":
+				eles = doc.select(".bd_list tbody tr:not(.notice)"); 
+				for(Element el : eles){
+		  			if(el.text().contains(keyword)){
+		  			    TotalSearchData tsd = new TotalSearchData();
+	    				tsd.setTitle(new SimpleStringProperty(el.select(".tit").text()));
+	    				tsd.setLink(new SimpleStringProperty("https://www.ygosu.com"+el.select(".tit a").attr("href")));
+	    				tsd.setSiteName(new SimpleStringProperty("와이고수"));
+	    				totalDataList.add(tsd);
+		  			}
+		  		}
+				break;
 		}
 		}catch(Exception e){e.printStackTrace();}        
     	

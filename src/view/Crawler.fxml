@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="830.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CrawlingController">
+<AnchorPane prefHeight="904.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CrawlingController">
   <!-- TODO Add Nodes -->
   <children>
     <Pane layoutX="45.0" layoutY="12.0" prefHeight="807.0" prefWidth="710.0" style="">
@@ -35,7 +36,7 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <TableView fx:id="resultTable" layoutX="-30.0" layoutY="251.0" prefHeight="551.0" prefWidth="770.0">
+            <TableView fx:id="resultTable" layoutX="-30.0" layoutY="251.0" prefHeight="559.0" prefWidth="770.0">
               <columns>
                 <TableColumn fx:id="titleCol" prefWidth="521.0" text="제목" />
                 <TableColumn fx:id="siteCol" prefWidth="162.0" text="사이트" />

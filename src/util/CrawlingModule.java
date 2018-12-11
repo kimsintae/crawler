@@ -1,8 +1,11 @@
 package util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -154,9 +157,11 @@ public class CrawlingModule {
 		
 		StringBuilder sb = new StringBuilder();
 		String pattern = "^[0-9]{0,4}(\\-|\\/|\\.){0,1}[0-9]{1,2}(\\-|\\/|\\.)[0-9]{1,2}";
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.mm.dd",Locale.KOREA);
 		Pattern dp = Pattern.compile(pattern);
 		Matcher dm = dp.matcher(date);
+		try {
+			
 			while(dm.find()){
 				sb.append(dm.group(0).replaceAll("(\\.|\\/|\\-)", "."));
 				if(sb.toString().indexOf('-')+1 == 3 && sb.length() >= 8){
@@ -165,8 +170,15 @@ public class CrawlingModule {
 					// mm-dd 타입 
 					sb.insert(0, "2018-");
 				}
-				
 			}
+		
+				Date d = sdf.parse(date);
+				System.out.println(d);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		sb.setLength(0);
 	}
 }

@@ -36,6 +36,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -57,6 +58,7 @@ public class CrawlingController implements Initializable{
 	@FXML private TableColumn<TotalSearchData, String> regCol;
 	@FXML private ChoiceBox<String> type;
 	@FXML private ChoiceBox<String> colType;
+	@FXML private ProgressBar progressBar;
 	
 	ObservableList<String> choiceList = FXCollections.observableArrayList();
 	ObservableList<CheckBox> chkList = FXCollections.observableArrayList();
@@ -172,6 +174,7 @@ public class CrawlingController implements Initializable{
 			//크롤링시작
 			if(chk.isSelected()){
 				// 선택된 사이트들만
+				// 키워드 모듈
 				if(!keyword.getText().trim().equals("") || colType_str.equals("search_keyword")){
 					boolean isMatchedDate = false;
 					ResultVO rVO = null;
@@ -188,9 +191,6 @@ public class CrawlingController implements Initializable{
 					pageCnt++; // 다음페이지
 //					System.out.println("크롤링 종료  : "+isMatchedDate);
 					};
-					
-					
-					// 키워드 모듈
 			
 				}else{
 					// 게시글 모듈

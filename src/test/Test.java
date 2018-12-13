@@ -18,17 +18,12 @@ public class Test {
   	    Elements eles = null;
   		// ����Ʈ ����
   		try {
-			doc = Jsoup.connect("http://www.etoland.co.kr/bbs/board.php?bo_table=movie&page=1").get();
-	  		eles = doc.select(".bd_list tbody tr:not(.notice)"); // tr 까지만 뽑기
-	  		
-//	  		System.out.println(eles);
+			doc = Jsoup.connect("http://www.todayhumor.co.kr/board/list.php?table=movie&page=1").get();
+			eles = doc.select(".table_list tbody .list_tr_movie");// tr 까지만 뽑기
 	  		
 	  		for(Element el : eles){
-	  			System.out.println("https://www.ygosu.com"+el.select(".tit a").attr("href"));
-	  			System.out.println(el.select(".tit").text());
-//	  			if(el.text().contains(keyword)){
-//	  				System.out.println(el.text());
-//	  			}
+	  			System.out.println(el.select(".subject").select("a").text());
+	  			System.out.println(el.select(".date").text());
 	  		}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -9,6 +9,8 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +41,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import util.CrawlingModule;
+import vo.ResultVO;
 import vo.TotalSearchData;
 
 public class CrawlingController implements Initializable{
@@ -51,6 +54,7 @@ public class CrawlingController implements Initializable{
 	@FXML private TableView<TotalSearchData> resultTable;
 	@FXML private TableColumn<TotalSearchData, String> titleCol;
 	@FXML private TableColumn<TotalSearchData, String> siteCol;
+	@FXML private TableColumn<TotalSearchData, String> regCol;
 	@FXML private ChoiceBox<String> type;
 	@FXML private ChoiceBox<String> colType;
 	
@@ -138,8 +142,6 @@ public class CrawlingController implements Initializable{
 				 }
 			 }
 		});
-
-		 
 	}//init
 
 	// 검색버튼
@@ -171,36 +173,57 @@ public class CrawlingController implements Initializable{
 			if(chk.isSelected()){
 				// 선택된 사이트들만
 				if(!keyword.getText().trim().equals("") || colType_str.equals("search_keyword")){
+					boolean isMatchedDate = false;
+					ResultVO rVO = null;
+					int pageCnt = 1;
+					while(!isMatchedDate){
+					rVO = CrawlingModule.doCrawling(pros.getProperty(
+							chk.getId()+"_"+type.getValue().toLowerCase()),
+							keyword.getText().trim(),
+							chk.getId(),
+							endDate.getValue(),
+							pageCnt);
+					isMatchedDate = rVO.isMatchedDate();
+					resultList.addAll(rVO.getList());
+					pageCnt++; // 다음페이지
+//					System.out.println("크롤링 종료  : "+isMatchedDate);
+					};
+					
+					
 					// 키워드 모듈
-					resultList.addAll(CrawlingModule.doCrawling(pros.getProperty(chk.getId()+"_"+type.getValue().toLowerCase()),keyword.getText().trim(),chk.getId()));
+			
 				}else{
 					// 게시글 모듈
 					System.out.println("게시글 모듈");
-					
 				}
-				
 			}//selected
 		}
 		
 		// 테이블에 데이터 뿌리기
 		for (int i = 0; i <resultList.size(); i++) {
-			System.out.println(resultList.get(i).getTitle());
+//			System.out.println(resultList.get(i).getTitle());
 			titleCol.setCellValueFactory(cellData -> cellData.getValue().getTitle());
 			siteCol.setCellValueFactory(cellData -> cellData.getValue().getSiteName());
+			regCol.setCellValueFactory(cellData -> cellData.getValue().getRegdate());
 			resultTable.setItems(resultList);
 		}
-		
 	}//search
 	
     public void chkAll(ActionEvent event){
-
-    	
     }//chkAll
     
     
     //크롤링 종료시점
     public void getEndDate(ActionEvent event){
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.mm.dd",Locale.KOREA);
+//    	String date = sdf.format(endDate.getValue().format(DateTimeFormatter.ofPattern("yyyy.mm.dd")));
  	    System.out.println(endDate.getValue());
+ 	    
+ 	    // LocalDate - > String
+// 	    String date = LocalDate.of(endDate.getValue().getYear(), endDate.getValue().getMonth().getValue(), endDate.getValue().getDayOfMonth()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+ 	    
+
+ 	    
     }
     
 }

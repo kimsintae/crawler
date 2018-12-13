@@ -2,6 +2,8 @@ package test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -11,9 +13,9 @@ public class DataUtilTest {
 
 	
 	public static void main(String[] args) {
+		
 		StringBuilder sb = new StringBuilder();
 		String pattern = "^[0-9]{0,4}(\\-|\\/|\\.){0,1}[0-9]{1,2}(\\-|\\/|\\.)[0-9]{1,2}";
-
 		
 		String date1 = "2018-12-10 10:40:25";
 		String date2 = "18.12.10 09:31:55";
@@ -21,34 +23,44 @@ public class DataUtilTest {
 		String date4 = "18/12/10 02:30";
 		String date5 = "12-29";
 		String date6 = "00:02:05";
-		String date7 = "ÇÑ½Ã°£Àü";
-		String date8 = "5ºÐÀü";
+		String date7 = "1ì¼ì „";
+		String date8 = "5ì‹œê°„ì „";
 		
-		if(date6.matches(".*[¤¡-¤¾¤¿-¤Ó°¡-ÆR]+.*")){
-			System.out.println("ÇÑ±Û");
-		}else if(date6.matches(".*:.*")){
-			System.out.println("½Ã°£");
-		}else{
-			// ³¯Â¥ºñ±³ ÇÔ¼ö µ¿ÀÛ
-			
+		LocalDate ld = LocalDate.parse("2018-12-12",DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		LocalDate rd = LocalDate.parse("2018-12-11",DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//		LocalDate rd 
+		
 
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.mm.dd",Locale.KOREA);
-			Pattern dp = Pattern.compile(pattern);
-			Matcher dm = dp.matcher(date4);
-			
+		System.out.println(LocalDate.now().format(DateTimeFormatter.ofPattern("yyy-MM-dd")));
 		
-			while(dm.find()){sb.append(dm.group(0).replaceAll("(\\.|\\/|\\-)", "."));}
-			
-				if(sb.toString().indexOf('.')+1 == 3 && sb.length() >= 8){
-					sb.insert(0, "20");
-				}else if(sb.length() < 6){
-					// mm-dd Å¸ÀÔ 
-					sb.insert(0, "2018.");
-				}
 		
-		}
 		
-		sb.setLength(0);
+//		System.out.println(ld.compareTo(rd));
+//		
+//		boolean flag = false;
+//		
+//		if(date1.length() < 10 && date1.matches(".*[ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½-ï¿½Ó°ï¿½-ï¿½R]+.*")){
+//			System.out.println("type = 1ì¼ì „ ");
+//		}else if(date1.length() < 10 && date1.matches(".*:.*")){
+//			System.out.println("type = 00:02:05");
+//		}else{
+//			// ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+//
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd",Locale.KOREA);
+//			Pattern dp = Pattern.compile(pattern);
+//			Matcher dm = dp.matcher(date1);
+//		
+//			while(dm.find()){sb.append(dm.group(0).replaceAll("(\\.|\\/|\\-)", "-"));}
+//				if(sb.toString().indexOf('-')+1 == 3 && sb.length() >= 8){
+//					sb.insert(0, "20");
+//				}else if(sb.length() < 6){
+//					// mm-dd Å¸ï¿½ï¿½ 
+//					sb.insert(0, "2018-");
+//				}
+////				LocalDate ld = LocalDate.parse(sb.toString());
+//				System.out.println(ld);
+//		}
+//		sb.setLength(0);
 		
 		
 		

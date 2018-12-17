@@ -18,12 +18,11 @@ public class Test {
   	    Elements eles = null;
   		// ����Ʈ ����
   		try {
-			doc = Jsoup.connect("http://www.todayhumor.co.kr/board/list.php?table=movie&page=1").get();
-			eles = doc.select(".table_list tbody .list_tr_movie");// tr 까지만 뽑기
-	  		
+			doc = Jsoup.connect("https://www.dogdrip.net/index.php?mid=movie&page=1").get();
+			eles = doc.select("tbody tr:not(.notice) .title");
+			
 	  		for(Element el : eles){
-	  			System.out.println(el.select(".subject").select("a").text());
-	  			System.out.println(el.select(".date").text());
+	  			System.out.println(el.parent().select(".time").text());
 	  		}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

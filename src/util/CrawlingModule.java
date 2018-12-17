@@ -24,9 +24,6 @@ import vo.TotalSearchData;
 
 public class CrawlingModule {
 	
-	
-	
-	
 	/*
 	 * 
 	 * 	�겕濡ㅻ쭅 ��耳� �궗�씠�듃 �슂�냼�뙋蹂꾧린
@@ -65,7 +62,6 @@ public class CrawlingModule {
 			            	if(!el.text().equals("怨듭�") && !el.text().equals("�꽕臾�") && el.parent().select("a").text().contains(keyword)){
 			            		// 크롤링 종료 시점 판단 
 			            		flag = compareDate(endDate, changeDateForm(el.parent().select(".gall_date").attr("title"))) > 0 ? true:false;
-			            		
 			            		if(flag){
 			            			resultVO.setMatchedDate(flag);
 			            			//true 검색 중지
@@ -88,12 +84,9 @@ public class CrawlingModule {
 						eles = doc.select("tbody tr:not(.notice) .title");
 			            for(Element el : eles){
 			            		if(el.text().contains(keyword)){
-
 			            			String date = el.parent().select(".time").text();
-				            		
 			            			// 크롤링 종료 시점 판단 
 				            		flag = compareDate(endDate, changeDateForm(date)) > 0 ? true:false;
-				            		
 				            		if(flag){
 				            			resultVO.setMatchedDate(flag);
 				            			//true 검색 중지
@@ -106,23 +99,35 @@ public class CrawlingModule {
 				            			tsd.setRegdate(new SimpleStringProperty(date));
 				            			totalDataList.add(tsd);
 				            			resultVO.setList(totalDataList);
-			            			
+				            			date = null;
 				            		}
-			            			
 			            		}
 			            }//for
 				break;
 			case "gaedrip":
 			    		// �슂�냼 �깘�깋  
 			    		eles = doc.select("tbody tr:not(.notice) .title");
-			    		for (int i = 0; i < eles.size(); i++) {
-			    			if(eles.get(i).select(".title-link").text().contains(keyword)){
-			    				TotalSearchData tsd = new TotalSearchData();
-			    				tsd.setTitle(new SimpleStringProperty(eles.get(i).select(".title-link").text()));
-			    				tsd.setLink(new SimpleStringProperty(eles.get(i).select(".link-reset").attr("href")));
-			    				tsd.setSiteName(new SimpleStringProperty("媛쒕뱶由�"));
-			    				totalDataList.add(tsd);
-			    				resultVO.setList(totalDataList);
+			    		for (Element el : eles) {
+			    			if(el.select(".title-link").text().contains(keyword)){
+			    				String date = el.parent().select(".time").text();
+			    				flag = compareDate(endDate, changeDateForm(date)) > 0 ? true:false;
+			            		if(flag){
+			            			resultVO.setMatchedDate(flag);
+			            			//true 검색 중지
+			            			break;
+			            		}else{
+			            			TotalSearchData tsd = new TotalSearchData();
+			            			tsd.setTitle(new SimpleStringProperty(el.select(".title-link").text()));
+			            			tsd.setLink(new SimpleStringProperty(el.select(".link-reset").attr("href")));
+			            			tsd.setSiteName(new SimpleStringProperty("媛쒕뱶由�"));
+			            			tsd.setRegdate(new SimpleStringProperty(date));
+			            			totalDataList.add(tsd);
+			            			resultVO.setList(totalDataList);
+			            			
+			            			date = null;
+			            		
+			            		}
+			    				
 			    				// 寃곌낵
 //			    				System.out.println(eles.get(i).select(".title-link").text() + " \n URL = "+eles.get(i).select(".link-reset").attr("href")) ;
 			    			};
@@ -184,7 +189,6 @@ public class CrawlingModule {
 		            			//true 검색 중지
 		            			break;
 		            		}else{
-		            			
 		            			TotalSearchData tsd = new TotalSearchData();
 		            			tsd.setTitle(new SimpleStringProperty(el.select(".subject").select("a").text()));
 		            			tsd.setLink(new SimpleStringProperty("http://www.todayhumor.co.kr"+el.select(".subject").select("a").attr("href")));
@@ -192,10 +196,7 @@ public class CrawlingModule {
 		            			tsd.setRegdate(new SimpleStringProperty(date));
 		            			totalDataList.add(tsd);
 		            			resultVO.setList(totalDataList);
-		            			
 		            		}
-			  				
-			  				
 			  			}
 			  		}
 				break;
@@ -234,12 +235,8 @@ public class CrawlingModule {
 	}//doCrawlig
 	
 	
-	
 	public static LocalDate changeDateForm(String regdate){
-		
-		
 		System.out.println("게시글 날짜  : "+regdate);
-		
 		
 		LocalDate ld = null;
 		StringBuilder sb = new StringBuilder();
@@ -247,10 +244,12 @@ public class CrawlingModule {
 		Pattern dp = Pattern.compile(pattern);
 		Matcher dm = dp.matcher(regdate.toString());
 		if(regdate.length() < 10 && regdate.matches(".*[��-����-�Ӱ�-�R]+.*")){
-			System.out.println("type = 1일전 ");
-			
+			//타입이 1일전, 10일전 일 경우
+//			regdate.replaceAll("[^0-9]", "");
+//			System.out.println(regdate);
 		}else if(regdate.length() < 10 && regdate.matches(".*:.*")){
-			System.out.println("type = 00:00:00");
+			// 타입이 00:00:00 일 경우
+			
 			sb.append(LocalDate.now().format(DateTimeFormatter.ofPattern("yyy-MM-dd"))); 
 			ld = LocalDate.parse(sb.toString());
 		}else{
@@ -273,10 +272,6 @@ public class CrawlingModule {
 	
 	// 날짜 비교
 	public static int compareDate(LocalDate endDate, LocalDate regdate){
-		
-		
-		
-		
 		//0 보다 크면 크롤링 종료일보다 이전 날짜가 됨.
 		return endDate.compareTo(regdate);
 		

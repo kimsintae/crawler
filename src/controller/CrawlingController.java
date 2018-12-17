@@ -58,7 +58,6 @@ public class CrawlingController implements Initializable{
 	@FXML private TableColumn<TotalSearchData, String> regCol;
 	@FXML private ChoiceBox<String> type;
 	@FXML private ChoiceBox<String> colType;
-	@FXML private ProgressBar progressBar;
 	
 	ObservableList<String> choiceList = FXCollections.observableArrayList();
 	ObservableList<CheckBox> chkList = FXCollections.observableArrayList();
@@ -91,7 +90,6 @@ public class CrawlingController implements Initializable{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 		endDate.setPromptText(sdf.format(d));
 		
-		
 		// https 연결 설정	
 		 TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
 				@Override
@@ -122,10 +120,6 @@ public class CrawlingController implements Initializable{
 			 @Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 //				 System.out.println(type.getSelectionModel().getSelectedItem());
-				 
-				 
-				 
-				 
 			}
 		});
 
@@ -212,13 +206,11 @@ public class CrawlingController implements Initializable{
     public void chkAll(ActionEvent event){
     }//chkAll
     
-    
     //크롤링 종료시점
     public void getEndDate(ActionEvent event){
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.mm.dd",Locale.KOREA);
 //    	String date = sdf.format(endDate.getValue().format(DateTimeFormatter.ofPattern("yyyy.mm.dd")));
  	    System.out.println(endDate.getValue());
- 	    
  	    // LocalDate - > String
 // 	    String date = LocalDate.of(endDate.getValue().getYear(), endDate.getValue().getMonth().getValue(), endDate.getValue().getDayOfMonth()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
  	    

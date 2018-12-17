@@ -26,7 +26,6 @@
             <CheckBox id="dcinside" fx:id="dcinside" layoutX="363.0" layoutY="52.0" mnemonicParsing="false" prefHeight="30.0" text="디시인사이드" />
             <CheckBox id="ppomppu" fx:id="ppomppu" layoutX="65.0" layoutY="96.0" mnemonicParsing="false" prefHeight="30.0" text="뽐뿌" />
                   <CheckBox id="ppomppu" fx:id="etorrent" layoutX="163.0" layoutY="96.0" mnemonicParsing="false" prefHeight="30.0" text="이토렌트" />
-                  <ProgressBar fx:id="progressBar" layoutX="240.0" layoutY="64.0" prefHeight="36.0" prefWidth="291.0" progress="0.0" />
           </children>
         </Pane>
             <DatePicker id="endDate" fx:id="endDate" layoutX="603.0" layoutY="54.0" onAction="#getEndDate" onInputMethodTextChanged="#getEndDate" prefHeight="30.0" prefWidth="130.0" />

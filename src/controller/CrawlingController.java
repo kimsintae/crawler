@@ -134,7 +134,6 @@ public class CrawlingController implements Initializable{
 				 }else{
 					 //게시글 수집
 					 endDate.setDisable(true);
-					 
 				 }
 			 }
 		});

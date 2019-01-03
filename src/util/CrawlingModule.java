@@ -35,20 +35,19 @@ public class CrawlingModule {
 		ResultVO resultVO = new ResultVO(); 
 		LocalDate endDate = endDateParam;// 종료날짜
 		
-		boolean flag = false;
-		
-		
+		boolean flag = false;		
 		List<TotalSearchData> totalDataList = new ArrayList<TotalSearchData>();
 		
 		try{
 			  // �궗�씠�듃 �뿰寃�
 			  Document doc = Jsoup.connect(url+PageCnt).get();
-	    	  Elements eles = null;
+	    	  Elements eles = null; 
 			switch (site) {
 			case "bobaedream":
 	
 				break;
 			case "dcinside":
+						
 						// �슂�냼 �깘�깋  
 			            eles = doc.select("tbody .gall_num");
 			            for(Element el : eles){
@@ -181,7 +180,7 @@ public class CrawlingModule {
 			  			if(el.text().contains(keyword)){
 			  				String date = el.select(".date").text();
 			  				
-			  			// 크롤링 종료 시점 판단 
+			  				// 크롤링 종료 시점 판단 
 		            		flag = compareDate(endDate, changeDateForm(date)) > 0 ? true:false;
 		            		
 		            		if(flag){
@@ -202,14 +201,26 @@ public class CrawlingModule {
 				break;
 			case "ygosu":
 				eles = doc.select(".bd_list tbody tr:not(.notice)"); 
-				for(Element el : eles){
+				for(Element el : eles){	
 		  			if(el.text().contains(keyword)){
-		  			    TotalSearchData tsd = new TotalSearchData();
-	    				tsd.setTitle(new SimpleStringProperty(el.select(".tit").text()));
-	    				tsd.setLink(new SimpleStringProperty("https://www.ygosu.com"+el.select(".tit a").attr("href")));
-	    				tsd.setSiteName(new SimpleStringProperty("���씠怨좎닔"));
-	    				totalDataList.add(tsd);
-	    				resultVO.setList(totalDataList);
+		  				
+		  				String date = el.select(".date").text();
+		  				
+		  				// 크롤링 종료 시점 판단 
+	            		flag = compareDate(endDate, changeDateForm(date)) > 0 ? true:false;
+	            		
+	            		if(flag){
+	            			resultVO.setMatchedDate(flag);
+	            			//true 검색 중지
+	            			break;
+	            		}else{
+			  			    TotalSearchData tsd = new TotalSearchData();
+		    				tsd.setTitle(new SimpleStringProperty(el.select(".tit").text()));
+		    				tsd.setLink(new SimpleStringProperty("https://www.ygosu.com"+el.select(".tit a").attr("href")));
+		    				tsd.setSiteName(new SimpleStringProperty("���씠怨좎닔"));
+		    				totalDataList.add(tsd);
+		    				resultVO.setList(totalDataList);
+	            		}
 		  			}
 		  		}
 				break;
@@ -228,9 +239,7 @@ public class CrawlingModule {
 				break;
 		}
 		}catch(Exception e){e.printStackTrace();}        
-    	
     	return resultVO;
-
 //    }
 	}//doCrawlig
 	
@@ -254,7 +263,6 @@ public class CrawlingModule {
 			ld = LocalDate.parse(sb.toString());
 		}else{
 			// ��¥�� �Լ� ����
-		
 			while(dm.find()){sb.append(dm.group(0).replaceAll("(\\.|\\/|\\-)", "-"));}
 				if(sb.toString().indexOf('-')+1 == 3 && sb.length() >= 8){
 					sb.insert(0, "20");

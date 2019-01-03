@@ -18,11 +18,11 @@ public class Test {
   	    Elements eles = null;
   		// ����Ʈ ����
   		try {
-			doc = Jsoup.connect("https://www.dogdrip.net/index.php?mid=movie&page=1").get();
-			eles = doc.select("tbody tr:not(.notice) .title");
+			doc = Jsoup.connect("https://www.ygosu.com/community/movie/?page=1").get();
+			eles = doc.select(".bd_list tbody tr:not(.notice)");
 			
 	  		for(Element el : eles){
-	  			System.out.println(el.parent().select(".time").text());
+	  			System.out.println(el.select(".date").text());
 	  		}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
